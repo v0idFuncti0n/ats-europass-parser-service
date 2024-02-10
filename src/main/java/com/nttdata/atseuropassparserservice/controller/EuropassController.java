@@ -22,8 +22,7 @@ public class EuropassController {
     @GetMapping(path = "/europass")
     public ResponseEntity<Object> europassToJson(@RequestParam("file") MultipartFile file) {
         try {
-            String response = europassService.europassToJson(file);
-            return ResponseEntity.status(HttpStatus.OK).body(response);
+            return ResponseEntity.status(HttpStatus.OK).body(europassService.europassToJson(file));
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
