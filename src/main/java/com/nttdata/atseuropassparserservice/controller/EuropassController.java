@@ -24,7 +24,6 @@ public class EuropassController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(europassService.europassToJson(file));
         } catch (Exception exception) {
-            exception.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
         }
     }

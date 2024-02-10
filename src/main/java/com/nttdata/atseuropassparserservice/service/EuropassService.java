@@ -16,6 +16,10 @@ public class EuropassService {
     public JsonNode europassToJson(MultipartFile file) throws IOException {
         String pdfRawContent =  IOUtils.toString(file.getInputStream(), StandardCharsets.UTF_8);
 
+        // Check if Europass PDF has XML SCHEMA
+        if(!pdfRawContent.contains("http://www.europass.eu/1.0 Candidate.xsd")) {
+            throw new IOException("Not Valid Europass PDF");
+        }
         // Get XML part inside the Europass PDF
         String xmlContent =  pdfRawContent.substring(pdfRawContent.indexOf("<?xml") , pdfRawContent.indexOf("</Candidate>") + 13 );
 
