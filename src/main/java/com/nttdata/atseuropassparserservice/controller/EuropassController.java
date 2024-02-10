@@ -1,5 +1,6 @@
 package com.nttdata.atseuropassparserservice.controller;
 
+import com.nttdata.atseuropassparserservice.controller.Response.ApiError;
 import com.nttdata.atseuropassparserservice.service.EuropassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,7 +25,8 @@ public class EuropassController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(europassService.europassToJson(file));
         } catch (Exception exception) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(exception.getMessage());
+            ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiError);
         }
     }
 }
